@@ -4,7 +4,7 @@ steps:
     args:
     - '-c'
     - |
-      docker pull gcr.io/$PROJECT_ID/ollama/ollama:latest || exit 0
+      docker pull us-central1-docker.pkg.dev/$PROJECT_ID/ollama/ollama:latest || exit 0
   - name: gcr.io/cloud-builders/docker
     args: [
             'build', 
