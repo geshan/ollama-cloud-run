@@ -18,7 +18,7 @@ steps:
             'run', 'deploy', 'ollama-try', '--image', 'us-central1-docker.pkg.dev/$PROJECT_ID/ollama:$SHORT_SHA', 
             '--region', 'us-central1', '--platform', 'managed', '--allow-unauthenticated',
             '--concurrency 4', '--cpu 8', '--set-env-vars OLLAMA_NUM_PARALLEL=4',
-            '--gpu 1', '--gpu-type nvidia-l4', '--max-instances 7', '--memory 32Gi', '--no-cpu-throttling'
+            '--gpu 1', '--gpu-type nvidia-l4', '--max-instances 7', '--memory 32Gi', '--no-cpu-throttling', '--timeout=600'
            ]
 images:
 - us-central1-docker.pkg.dev/$PROJECT_ID/ollama
