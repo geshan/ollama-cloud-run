@@ -23,14 +23,14 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ["push", "-a", "us-central1-docker.pkg.dev/$PROJECT_ID/ollama/ollama"]
   
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args: [
-            'run', 'deploy', 'ollama-try', '--image', 'us-central1-docker.pkg.dev/$PROJECT_ID/ollama/ollama:$SHORT_SHA', 
-            '--region', 'us-central1', '--platform', 'managed', '--allow-unauthenticated',
-            '--concurrency', '4', '--cpu', '8', '--memory', '32Gi', '--set-env-vars', 'OLLAMA_NUM_PARALLEL=4',
-            '--gpu', '1', '--gpu-type', 'nvidia-l4', '--max-instances', '7', '--min-instances', '0',
-            '--no-cpu-throttling', '--timeout=600'
-           ]
+  # - name: 'gcr.io/cloud-builders/gcloud'
+  #   args: [
+  #           'run', 'deploy', 'ollama-try', '--image', 'us-central1-docker.pkg.dev/$PROJECT_ID/ollama/ollama:$SHORT_SHA', 
+  #           '--region', 'us-central1', '--platform', 'managed', '--allow-unauthenticated',
+  #           '--concurrency', '4', '--cpu', '8', '--memory', '32Gi', '--set-env-vars', 'OLLAMA_NUM_PARALLEL=4',
+  #           '--max-instances', '7', '--min-instances', '0', '--no-cpu-throttling', '--timeout=600'
+  #           #,'--gpu', '1', '--gpu-type', 'nvidia-l4', 
+  #          ]
 images:
 - us-central1-docker.pkg.dev/$PROJECT_ID/ollama/ollama
 options:
