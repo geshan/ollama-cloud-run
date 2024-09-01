@@ -4,7 +4,9 @@ Gemma 9B over Ollama on Google Cloud Run.
 
 ## Configure with cloud build
 
-You will need to connect the GitHub repository to Google Cloud Build and setup a trigger to build and deploy the container image. The `cloudbuild.yaml` file is already in the repository and it uses Docker caching to make the Docker build faster, anyhow the most time consuming part is the push to Google Artifact Registry as it is a 5.4 GB image.
+You will need to connect the GitHub repository to Google Cloud Build and setup a trigger to build and deploy the container image. You will also need to create a `Docker` repository in Artifiact registry. I have used `us-central1` as the region for the repository, build and Cloud Run deploy region.
+
+The `cloudbuild.yaml` file is already in the repository and it uses Docker caching to make the Docker build faster, anyhow the most time consuming part is the push to Google Artifact Registry as it is a `5.4 GB` image.
 
 ![Cloud build example output](/images/cloud-build-output.jpg)
 
