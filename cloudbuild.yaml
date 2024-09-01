@@ -11,7 +11,7 @@ steps:
             '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/ollama/ollama:${SHORT_SHA}', 
             '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/ollama/ollama:${BRANCH_NAME}', 
             '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/ollama/ollama:latest', 
-            '--cache-from', 'gcr.io/$PROJECT_ID/ollama/ollama:latest',
+            '--cache-from', 'us-central1-docker.pkg.dev/$PROJECT_ID/ollama/ollama:latest',
             '--build-arg', 'COMMIT_SHA=${SHORT_SHA}', '--build-arg', 'BRANCH_NAME=${BRANCH_NAME}', '.']
     env:
       - 'DOCKER_BUILDKIT=1'
