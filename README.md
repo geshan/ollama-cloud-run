@@ -4,9 +4,11 @@ Gemma 9B over Ollama on Google Cloud Run.
 
 ## Configure with cloud build
 
-You will need to connect the GitHub repository to Google Cloud Build and setup a trigger to build and deploy the container image. You will also need to create a `Docker` repository in Artifiact registry. I have used `us-central1` as the region for the repository, build and Cloud Run deploy region.
+You will need to connect the GitHub repository to Google Cloud Build and setup a trigger to build and deploy the container image. You will also need to create a `Docker` repository in Artifiact Registry, like below:
 
-The `cloudbuild.yaml` file is already in the repository and it uses Docker caching to make the Docker build faster, anyhow the most time consuming part is the push to Google Artifact Registry as it is a `5.4 GB` image.
+![Cloud build example output](/images/artifact-repo-create-repo.jpg)
+
+I have used `us-central1` as the region for the repository, build and Cloud Run deploy region. The `cloudbuild.yaml` file is already in the repository and it uses Docker caching to make the Docker build faster, anyhow the most time consuming part is the push to Google Artifact Registry as it is a `5.4 GB` image.
 
 ![Cloud build example output](/images/cloud-build-output.jpg)
 
@@ -14,19 +16,22 @@ The `cloudbuild.yaml` file is already in the repository and it uses Docker cachi
 
 After the container is built and pushed to artifact registry, you can deploy it to Cloud Run.
 
-After you select the build image, for the model to function correclty on Google Cloud Run make sure to configure:
+You select the built Docker image from Artifact Registry. For the model to function properly on Google Cloud Run make sure to configure:
 
 * 32 GB of memory
 * 8 vCPUs
 * 600 seconds of timeout
 * 4 concurrent requests per instance
+* Max instanced >= 4
 * Environment variable of `OLLAMA_NUM_PARALLEL=4`
+* CPU is always allocated (selected)
+* Startup CPU boost (enabled)
 
-I could get the model running without a GPU with above configuration. GPUs are supported on Cloud Run but it is being a request form for now. This offical [guide](https://cloud.google.com/run/docs/tutorials/gpu-gemma2-with-ollama) gives an example with GPU.
+I could get the model running without a GPU with above configuration. GPUs are supported on Cloud Run but it is being a [request form](https://g.co/cloudrun/GPU) for now. This offical [guide](https://cloud.google.com/run/docs/tutorials/gpu-gemma2-with-ollama) gives an example with GPU.
 
 ## Examples
 
-Below are some examples:
+After the container is deployed successfully on Cloud Run, you can run the below examples:
 
 ### Without streaming
 
@@ -63,6 +68,6 @@ curl -i https://<cloud-run-identifier>.a.run.app/api/generate -d '{
 }'
 ```
 
-In the test done, it took `7.73s` to generate the output:
+In the test done, it took `7.73s` to generate the output (not bad withotu any GPUs):
 
 ![Response from Gemma with Ollama in 7.73 s](/images/ollama-gemma-output.jpg)
