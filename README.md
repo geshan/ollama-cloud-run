@@ -50,7 +50,7 @@ It will respond faster but the output will be streamed.
 
 ```bash
 curl https://<cloud-run-identifier>.a.run.app/api/generate -d '{
-  "model": "llama3",
+  "model": "gemma2:9b",
   "prompt": "Why is the sky blue?",
   "stream": false
 }'
