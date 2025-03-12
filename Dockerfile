@@ -16,7 +16,7 @@ ENV OLLAMA_KEEP_ALIVE -1
 ENV GIN_MODE release
 
 # Store the model weights in the container image
-ENV MODEL gemma2:9b
+ENV MODEL gemma3:4b
 RUN ollama serve & sleep 5 && ollama pull $MODEL 
 
 # Start Ollama
